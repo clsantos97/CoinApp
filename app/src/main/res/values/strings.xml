@@ -3,4 +3,6 @@
     <string name="btn_flip">Tirar</string>
     <string name="btn_stats">Estadísticas</string>
     <string name="btn_source">Código fuente</string>
+    <string name="tv_head">Cara</string>
+    <string name="tv_tail">Cruz</string>
 </resources>

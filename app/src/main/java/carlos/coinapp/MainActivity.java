@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             startActivity(new Intent(MainActivity.this, Stats.class));
         }else if(view == btnSource){
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://www.google.es"));
+                    Uri.parse("https://github.com/clsantos97/CoinApp"));
             startActivity(browserIntent);
         }
     }
