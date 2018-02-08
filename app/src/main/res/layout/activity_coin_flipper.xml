@@ -39,8 +39,7 @@
                     android:layout_width="100dp"
                     android:layout_height="110dp"
                     android:layout_marginBottom="40dp"
-                    android:layout_marginTop="20dp"
-                    />
+                    android:layout_marginTop="90dp" />
 
                 <LinearLayout
                     android:id="@+id/formLayout"
@@ -51,40 +50,59 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/tv_head"/>
+                        android:text="@string/tv_head" />
 
                     <EditText
                         android:id="@+id/etHead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        />
+                        android:inputType="textPersonName" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="@string/tv_tail"/>
+                        android:text="@string/tv_tail" />
 
                     <EditText
                         android:id="@+id/etTail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        />
+                        android:inputType="textPersonName" />
+
+                    <Button
+                        android:id="@+id/btnFlip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/btn_flip"
+                        tools:text="@string/btn_flip"></Button>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnFlip"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/btn_flip"
-                    tools:text="@string/btn_flip">
-                </Button>
+                <LinearLayout
+                    android:id="@+id/resultLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/btnFlipAgain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btn_flip_again"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
 
             </LinearLayout>
             <!-- 70% Width End-->

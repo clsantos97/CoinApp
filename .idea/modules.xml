@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CoinApp.iml" filepath="$PROJECT_DIR$/CoinApp.iml" />
+      <module fileurl="file://C:\ASProjects\CoinAppFinal\CoinApp.iml" filepath="C:\ASProjects\CoinAppFinal\CoinApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CoinAppFinal.iml" filepath="$PROJECT_DIR$/CoinAppFinal.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
