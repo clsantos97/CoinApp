@@ -3,6 +3,7 @@ package carlos.coinapp;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,7 @@ public class CoinFlipper extends AppCompatActivity implements Button.OnClickList
 
     private Animation fadeout;
     private Animation fadein;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class CoinFlipper extends AppCompatActivity implements Button.OnClickList
         resultLayout = (LinearLayout) findViewById(R.id.resultLayout);
 
         // Get animations
+        mediaPlayer = MediaPlayer.create(this, R.raw.coin);
         fadeout = AnimationUtils.loadAnimation(this, R.anim.fadeout);
         fadein = AnimationUtils.loadAnimation(this, R.anim.fadein);
 
@@ -110,11 +113,19 @@ public class CoinFlipper extends AppCompatActivity implements Button.OnClickList
 
                 @Override
                 public void onAnimationEnd(Animation arg0) {
+
+                    mediaPlayer.start();
                     coinflipAnimation.stop();
                     if (res == 1) {
-                        result = "HA SALIDO CARA: " + etHead.getText().toString();
+                        result = etHead.getText().toString();
+                        ivCoin.setImageResource(R.drawable.coinheads);
+                        if(!etHead.getText().equals("")){
+                            saveResult(res);
+                        }
                     } else if (res == 2) {
-                        result = "HA SALIDO CRUZ: " + etTail.getText().toString();
+                        if(!etTail.getText().equals("")){
+                            saveResult(res);
+                        }
                     }
                     tvResult.setText(result);
 

@@ -3,9 +3,14 @@ package carlos.coinapp;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,13 +20,14 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class MainActivity extends AppCompatActivity implements Button.OnClickListener{
+public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
 
     private ImageView ivLogo;
     private Button btnFlip;
     private Button btnStats;
     private Button btnSource;
     private Animation shake;
+    private Animation rotate;
     private SQLiteDatabase db;
     private static final Logger logger = Logger.getLogger(MainActivity.class.getName());
     private static ArrayList<Toss> mockData = new ArrayList<>();
@@ -32,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         setContentView(R.layout.activity_main);
 
         // Get view elements
-        ivLogo = (ImageView)findViewById(R.id.ivLogo);
-        btnFlip = (Button)findViewById(R.id.btnFlip);
-        btnStats = (Button)findViewById(R.id.btnStats);
-        btnSource = (Button)findViewById(R.id.btnSource);
+        ivLogo = (ImageView) findViewById(R.id.ivLogo);
+        btnFlip = (Button) findViewById(R.id.btnFlip);
+        btnStats = (Button) findViewById(R.id.btnStats);
+        btnSource = (Button) findViewById(R.id.btnSource);
 
         // Add OnClickListener
         ivLogo.setOnClickListener(this);
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
         // Get animations
         shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        rotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
         // db
         initDb();
@@ -53,21 +60,36 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     }
 
     @Override
-    public void onWindowFocusChanged (boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus)
+        if (hasFocus) {
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coin);
+            mediaPlayer.start();
             ivLogo.startAnimation(shake);
+            btnFlip.startAnimation(shake);
+            btnStats.startAnimation(shake);
+            btnSource.startAnimation(shake);
+        }
+
+
     }
 
     @Override
     public void onClick(View view) {
-        if(view == ivLogo){
+        if (view == ivLogo) {
             ivLogo.startAnimation(shake);
-        }else if(view == btnFlip){
-            startActivity(new Intent(MainActivity.this, CoinFlipper.class));
-        }else if(view == btnStats){
+        } else if (view == btnFlip) {
+            btnFlip.startAnimation(rotate);
+            btnFlip.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(MainActivity.this, CoinFlipper.class));
+                }
+            }, 1500);
+            //startActivity(new Intent(MainActivity.this, CoinFlipper.class));
+        } else if (view == btnStats) {
             startActivity(new Intent(MainActivity.this, Stats.class));
-        }else if(view == btnSource){
+        } else if (view == btnSource) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://github.com/clsantos97/CoinApp"));
             startActivity(browserIntent);
@@ -92,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public void insertMockData() {
         try {
             String query;
-            for (Toss mockToss:mockData) {
+            for (Toss mockToss : mockData) {
                 query = "INSERT INTO toss (id, res, resmsg, date) " +
-                        "VALUES ('"+mockToss.getId()+"','"+mockToss.isRes()+"','"+mockToss.getResmsg()+"','"+mockToss.getDate()+"')";
+                        "VALUES ('" + mockToss.getId() + "','" + mockToss.isRes() + "','" + mockToss.getResmsg() + "','" + mockToss.getDate() + "')";
                 try {
                     db.execSQL(query);
                 } catch (Exception e) {
@@ -109,13 +131,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
     }
 
-    public void initMockData(){
-        mockData.add(new Toss(1,true,"hacer a"));
-        mockData.add(new Toss(2,false,"hacer b"));
-        mockData.add(new Toss(3,false,"Devolver El ultimo mohicano a biblioteca"));
-        mockData.add(new Toss(4,true,"Dormir"));
+    public void initMockData() {
+        mockData.add(new Toss(1, true, "hacer a"));
+        mockData.add(new Toss(2, false, "hacer b"));
+        mockData.add(new Toss(3, false, "Devolver El ultimo mohicano a biblioteca"));
+        mockData.add(new Toss(4, true, "Dormir"));
     }
-
 
 
 }
