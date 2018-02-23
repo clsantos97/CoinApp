@@ -88,7 +88,7 @@ public class CoinFlipper extends AppCompatActivity implements Button.OnClickList
                     TranslateAnimation.RELATIVE_TO_SELF, 0f,
                     TranslateAnimation.RELATIVE_TO_SELF, 0f,
                     TranslateAnimation.RELATIVE_TO_SELF, 0f,
-                    TranslateAnimation.RELATIVE_TO_SELF, -1.8f); // this is distance of top and bottom form current position
+                    TranslateAnimation.RELATIVE_TO_SELF, -1.4f); // this is distance of top and bottom form current position
 
             anim.setDuration(2000);
             anim.setRepeatCount(1);
@@ -101,10 +101,8 @@ public class CoinFlipper extends AppCompatActivity implements Button.OnClickList
                 @Override
                 public void onAnimationStart(Animation arg0) {
                     coinflipAnimation.start();
-                    // TODO ADD SOUND
                     res = random.nextBoolean() ? 1 : 2;
-
-
+                    mediaPlayer.start();
                 }
 
                 @Override
@@ -114,22 +112,23 @@ public class CoinFlipper extends AppCompatActivity implements Button.OnClickList
                 @Override
                 public void onAnimationEnd(Animation arg0) {
 
-                    mediaPlayer.start();
+
                     coinflipAnimation.stop();
                     if (res == 1) {
                         result = etHead.getText().toString();
-                        ivCoin.setImageResource(R.drawable.coinheads);
+                        ivCoin.setBackgroundResource(R.drawable.coinheads);
                         if(!etHead.getText().equals("")){
                             saveResult(res);
                         }
                     } else if (res == 2) {
+                        result = etTail.getText().toString();
+                        ivCoin.setBackgroundResource(R.drawable.cointails);
                         if(!etTail.getText().equals("")){
                             saveResult(res);
                         }
                     }
                     tvResult.setText(result);
 
-                    saveResult(res);
                     formLayout.setVisibility(View.GONE);
                     resultLayout.setAnimation(fadein);
                     resultLayout.setVisibility(View.VISIBLE);
